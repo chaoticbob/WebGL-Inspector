@@ -247,10 +247,35 @@
             'MOZ_WEBGL_compressed_texture_s3tc',
             'WEBKIT_WEBGL_compressed_texture_s3tc'
         ];
+
+        // Is this really necessary?
         for (var n = 0, l = validExts.length; n < l; n++) {
             validExts.push('MOZ_' + validExts[n]);
             validExts.push('WEBKIT_' + validExts[n]);
         }
+
+        // Add in extensions that do not require constants. 
+        var supportedExts = this.getSupportedExtensions();
+        var ncExts = [
+            'OES_vertex_array_object',
+            'ANGLE_instanced_arrays'
+        ];
+        for( var n in ncExts ) {
+            var ext = ncExts[n];
+            if( -1 !== supportedExts.indexOf( ext ) && -1 === validExts.indexOf( ext ) ) {
+                validExts.push( ext );
+            }
+        }
+
+/*
+        // Print out a list of supported extensions
+        var str = "WebGL-Inspector supported extensions:";
+        for( var ext in validExts ) {
+            str += "\n   " + validExts[ext];
+        }
+        console.log( str );
+*/
+
         function containsInsensitive(list, name) {
             name = name.toLowerCase();
             for (var n = 0, len = list.length; n < len; ++n) {
@@ -272,6 +297,7 @@
         var original_getExtension = this.getExtension;
         this.getExtension = function (name) {
             if (!containsInsensitive(validExts, name)) {
+                console.warn( 'unsupported extension ' + name + ' (WebGL-Inspector)' );
                 return null;
             }
             var result = original_getExtension.apply(this, arguments);
