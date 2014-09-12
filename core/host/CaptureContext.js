@@ -254,14 +254,14 @@
             validExts.push('WEBKIT_' + validExts[n]);
         }
 
-        // Add in extensions that do not require constants. 
+        // Extensions that may not be on all devices 
         var supportedExts = this.getSupportedExtensions();
-        var ncExts = [
+        var moreExts = [
             'OES_vertex_array_object',
             'ANGLE_instanced_arrays'
         ];
-        for( var n in ncExts ) {
-            var ext = ncExts[n];
+        for( var n in moreExts ) {
+            var ext = moreExts[n];
             if( -1 !== supportedExts.indexOf( ext ) && -1 === validExts.indexOf( ext ) ) {
                 validExts.push( ext );
             }
@@ -323,6 +323,9 @@
                         this['COMPRESSED_RGBA_S3TC_DXT1_EXT'] = 0x83F1;
                         this['COMPRESSED_RGBA_S3TC_DXT3_EXT'] = 0x83F2;
                         this['COMPRESSED_RGBA_S3TC_DXT5_EXT'] = 0x83F3;
+                        break;
+                    case 'oes_vertex_array_object':
+                        this['VERTEX_ARRAY_BINDING_OES'] = 0x85B5;
                         break;
                 }
 
