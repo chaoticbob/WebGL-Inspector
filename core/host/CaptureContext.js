@@ -325,7 +325,10 @@
                         this['COMPRESSED_RGBA_S3TC_DXT5_EXT'] = 0x83F3;
                         break;
                     case 'oes_vertex_array_object':
-                        this['VERTEX_ARRAY_BINDING_OES'] = 0x85B5;
+                        this['VERTEX_ARRAY_BINDING_OES'] = 0x85B5;                   
+                        break;
+                    case 'angle_instanced_arrays':
+                        this['VERTEX_ATTRIB_ARRAY_DIVISOR_ANGLE'] = 0x88FE;
                         break;
                 }
 
